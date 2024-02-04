@@ -1,56 +1,47 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the repository
-                script {
-                    git branch: 'main', url: 'https://github.com/your-repo.git'
-                }
+                // Checkout code from Git
+                checkout scm
             }
         }
-
+        
         stage('Build') {
             steps {
                 // Your build steps go here
-                script {
-                    echo 'Building the code...'
-                }
+                sh 'echo "Building the project"'
             }
         }
-
+        
         stage('Test') {
             steps {
                 // Your test steps go here
-                script {
-                    echo 'Running tests...'
-                }
+                sh 'echo "Running tests"'
             }
         }
-
+        
         stage('Deploy') {
-            when {
-                // Deploy only if the branch is 'main'
-                expression { env.BRANCH_NAME == 'main' }
-            }
             steps {
                 // Your deployment steps go here
-                script {
-                    echo 'Deploying the application...'
-                }
+                sh 'echo "Deploying the project"'
             }
         }
     }
-
+    
     post {
         success {
-            // This block runs if the pipeline is successful
-            echo 'Pipeline executed successfully!'
+            // Actions to perform after a successful build
+            echo 'Build successful. Send notifications, etc.'
         }
         failure {
-            // This block runs if the pipeline fails
-            echo 'Pipeline execution failed!'
+            // Actions to perform after a failed build
+            echo 'Build failed. Send notifications, etc.'
         }
     }
 }
+
+
+      
